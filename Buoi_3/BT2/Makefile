@@ -1,4 +1,4 @@
-.PHONY: all clean create_lib_obj
+.PHONY: all clean create_lib_obj create_shared_lib create_static_lib linking_shared_lib linking_static_lib
 
 SHARED_LIB_NAME := shared_lib
 STATIC_LIB_NAME := static_lib
@@ -25,10 +25,10 @@ create_lib_obj:
 	gcc -c -fPIC $(SRC_LIB_DIR)/*.c -o $(OBJ_DIR)/lib.o -I $(INC_LIB_DIR)
 
 create_shared_lib:
-	gcc -shared $(OBJ_DIR)/lib.o -o $(OBJ_DIR)/lib$(SHARED_LIB_NAME).so
+	gcc -shared $(OBJ_DIR)/lib.o -o $(LIB_SHARED_DIR)/lib$(SHARED_LIB_NAME).so
 
 create_static_lib:
-	ar rcs $(OBJ_DIR)/lib$(STATIC_LIB_NAME).a $(OBJ_DIR)/lib.o 
+	ar rcs $(LIB_STATIC_DIR)/lib$(STATIC_LIB_NAME).a $(OBJ_DIR)/lib.o 
 
 linking_shared_lib:
 	gcc $(OBJ_DIR)/$(TARGET).o -L $(OBJ_DIR) -l $(SHARED_LIB_NAME) -o $(CUR_DIR)/use-shared-library
